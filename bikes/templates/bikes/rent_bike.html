@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent Bike</title>
+</head>
+<body>
+    <h1>{{ bike.name }}</h1>
+    <p>{{ bike.description }}</p>
+    <p>Price: ${{ bike.price_per_hour }} per hour</p>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <a href="{% url 'bike_list' %}">Back to Bike List</a>
+</body>
+</html>

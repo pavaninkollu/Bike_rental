@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bike List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <main>
+        {% include 'header.html' %}
+  
+    <h1>Bike List</h1>
+    <ul>
+        {% for bike in bikes %}
+            <li>
+                <span class="bike-name">{{ bike.name }}</span> - 
+                <span class="bike-description">{{ bike.description }}</span> - 
+                ₹{{ bike.price_per_hour }} per hour 
+                {% if bike.available %}
+                    <a class="rent-link" href="{% url 'rent_bike' bike.id %}">Rent</a>
+                {% else %}
+                    <span class="not-available">Not Available</span>
+                {% endif %}
+                <form action="{% url 'delete_bike' bike.id %}" method="post" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_bike' %}">Add Bike</a>
+
+
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>
+
+
+
+
